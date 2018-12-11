@@ -40,16 +40,29 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(response.data);
     // console.log($);
 
+    // An empty array to save the data that we'll scrape
+    var results = [];
+
     $(".launch-article").each(function(i, element) {
       // console.log(element);
 
-      // "result" is an object to store article data
-      var result = {};
-
-      var title = $('.launch-title').children("a").text();
-      // var title = $(this).children("a").text();
+      var title = $(element)
+        .find(".launch-title")
+        .find("a")
+        .text();
       console.log(title + "\n");
-      // console.log($(this).children("h2").text());
+
+      var link = $(element)
+        .find(".launch-title")
+        .find("a")
+        .attr("href");
+      console.log(link + "\n");
+
+      // .push() an object of each article's elements into results Array
+      results.push({
+        title: title,
+        link: link
+      });
 
     }); // end cheerio.each
   }); // end axios.get.then
