@@ -1,0 +1,37 @@
+{
+  "name": "spacescraper",
+  "version": "1.0.0",
+  "description": "Scraping news from space with Mongo via Mongoose",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LandrumTrev/spacescraper.git"
+  },
+  "keywords": [
+    "space",
+    "news",
+    "scrape",
+    "scraper",
+    "scraping",
+    "MongoDB",
+    "Mongo",
+    "mongoose"
+  ],
+  "author": "Richard Trevillian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LandrumTrev/spacescraper/issues"
+  },
+  "homepage": "https://github.com/LandrumTrev/spacescraper#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.3.15"
+  }
+}
