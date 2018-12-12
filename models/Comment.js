@@ -8,3 +8,24 @@
 // models/Comment.js - mongoose Model for User Comments on Articles
 // ====================================================
 
+
+let mongoose = require("mongoose");
+let Schema = mongoose.Schema;
+
+let CommentSchema = new Schema({
+  commentText: {
+    type: String,
+    required: true
+  },
+  commentDatetime: {
+    type: String,
+    required: true
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
+});
+
+let Comment = mongoose.model("Comment", CommentSchema);
+module.exports = Comment;

@@ -5,12 +5,13 @@
 // University of Richmond (Virginia)
 // Full Stack Developer Bootcamp (July 2018)
 // ====================================================
-// server.js - settings for the Express web server
+// models/index.js - collect and export all mongoose Models in /models dir
 // ====================================================
 
-// Exporting an object containing all of our models
+// Export an object containing all mongoose Models in /models dir
 
 module.exports = {
   Article: require("./Article"),
-  Comment: require("./Comment")
+  Comment: require("./Comment"),
+  User: require("./User")
 };
