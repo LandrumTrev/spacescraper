@@ -14,7 +14,6 @@ var db = require("../models");
 
 // export routes for import by server.js, used by Express
 module.exports = function(app) {
-
   // ====================================================
 
   // root call renders index.handlebars
@@ -22,13 +21,6 @@ module.exports = function(app) {
     res.render("index", {
       msg: "Welcome Intergalactic Mongeese!"
     });
-
-    // db.Example.findAll({}).then(function(dbExamples) {
-    //   res.render("index", {
-    //     msg: "Welcome!",
-    //     examples: dbExamples
-    //   });
-    // });
   });
 
   // =====================================================
@@ -40,8 +32,7 @@ module.exports = function(app) {
       // data returned placed into promise func's dbArticle param
       .then(function(dbArticle) {
         // check out the structure of the data returned in dbArticle
-        console.log(dbArticle[0]);
-        console.log("\n");
+        // console.log(dbArticle[0]);
         // result renders article.handlebars view
         res.render("articles", {
           // data passed into the Handlebars view render:
@@ -58,23 +49,7 @@ module.exports = function(app) {
       }); // end .catch()
   }); // end app.get()
 
-
-  // // Route for getting all Articles from the db
-  // app.get("/articles", function(req, res) {
-  //   // Grab every document in the Articles collection
-  //   db.Article.find({})
-  //     .then(function(dbArticle) {
-  //       // If we were able to successfully find Articles, send them back to the client
-  //       res.json(dbArticle);
-  //     })
-  //     .catch(function(err) {
-  //       // If an error occurred, send it to the client
-  //       res.json(err);
-  //     });
-  // });
-
   // =====================================================
-
 
   // Load page with user's projects
   // app.get("/:user", function(req, res) {

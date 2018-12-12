@@ -14,11 +14,12 @@ DISPLAY ALL ARTICLES FROM spacescraper DB > articles COLLECTION
     <div class="row">
       <div class="col-8 offset-2">
 
-        {{!-- {{msg}} data defined in htmlRoutes "/" get call --}}
+        {{!-- msg: is hardcoded value in /articles htmlRoute --}}
         <h1>{{msg}}</h1>
 
         <h3>Good reading for space mongeese!</h3>
 
+        {{!-- articles: is all docs from "articles" collection --}}
         {{#each articles}}
           {{!-- {{#if title}} --}}
           {{!-- <p>{{title}}</p> --}}

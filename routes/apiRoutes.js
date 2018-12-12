@@ -27,91 +27,126 @@ let cheerio = require("cheerio");
 // export routes for import by server.js, used by Express
 module.exports = function(app) {
 
+
   // GET route to scrape news page from spacenews.com
-// https://spacenews.com/segment/news/
-app.get("/scrape", function(req, res) {
-  axios.get("https://spacenews.com/segment/news/").then(function(response) {
-    // console.log(response);
-    // console.log(response.data);
-    let $ = cheerio.load(response.data);
-    // console.log($);
+  // https://spacenews.com/segment/news/
+  app.get("/scrape", function(req, res) {
+    axios.get("https://spacenews.com/segment/news/").then(function(response) {
+      // console.log(response);
+      // console.log(response.data);
+      let $ = cheerio.load(response.data);
+      // console.log($);
 
-    // An empty array to save the data that we'll scrape
-    let results = [];
+      // An empty array to save the data that we'll scrape
+      let results = [];
 
-    $(".launch-article").each(function(i, element) {
-      // console.log(element);
+      $(".launch-article").each(function(i, element) {
+        // console.log(element);
 
-      const article = {};
+        const article = {};
 
-      article.link = $(element)
-        .find(".launch-title")
-        .find("a")
-        .attr("href");
-      // console.log(article.link + "\n");
+        article.link = $(element)
+          .find(".launch-title")
+          .find("a")
+          .attr("href");
+        // console.log(article.link + "\n");
 
-      article.title = $(element)
-        .find(".launch-title")
-        .find("a")
-        .text();
-      // console.log(article.title + "\n");
+        article.title = $(element)
+          .find(".launch-title")
+          .find("a")
+          .text();
+        // console.log(article.title + "\n");
 
-      article.author = $(element)
-        .find(".author")
-        .text();
-      // console.log(article.author + "\n");
+        article.author = $(element)
+          .find(".author")
+          .text();
+        // console.log(article.author + "\n");
 
-      article.authorLink = $(element)
-        .find(".author")
-        .attr("href");
-      // console.log(article.authorLink + "\n");
+        article.authorLink = $(element)
+          .find(".author")
+          .attr("href");
+        // console.log(article.authorLink + "\n");
 
-      article.pubDate = $(element)
-        .find(".pubdate")
-        .attr("datetime");
-      // console.log(article.pubDate + "\n");
+        article.pubDate = $(element)
+          .find(".pubdate")
+          .attr("datetime");
+        // console.log(article.pubDate + "\n");
 
-      article.excerpt = $(element)
-        .find(".post-excerpt")
-        .text();
-      // console.log(article.excerpt + "\n");
+        article.excerpt = $(element)
+          .find(".post-excerpt")
+          .text();
+        // console.log(article.excerpt + "\n");
 
-      article.thumbnail = $(element)
-        .find(".wp-post-image")
-        .attr("src");
-      // console.log(article.thumbnail + "\n");
+        article.thumbnail = $(element)
+          .find(".wp-post-image")
+          .attr("src");
+        // console.log(article.thumbnail + "\n");
 
-      // .push() each filled article object into the results Array
-      results.push(article);
+        // console.log(article + "\n");
 
-      // console.log(article);
-      // console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
+        // ==============================
 
-      // ==============================
+        // then run a function that only inserts a scraped article
+        // if it does not already exist in the db
+        checkNewArticles(article);
 
-      // use mongoose model Article to .create() a new document in "articles" collection
-      db.Article.create(article)
-        .then(function(dbArticle) {
-          console.log(dbArticle);
-          console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-      // end Article.create
-    }); // end cheerio.each
+        // ==============================
+      });
+    });
+  });
 
-    // send the "results" Array to the browers as JSON for "/scrape"
-    res.json(results);
-  }); // end axios.get.then
-}); // end app.get
+  // checks if a new article being scraped already exists in "articles" collection
+  function checkNewArticles(checkArticle) {
+    // console.log(checkArticle);
+    // console.log("INCOMING: " + checkArticle.title);
 
+    // // empty array to fill with existing titles from "articles"
+    let existingTitles = [];
 
+    // get all docs from "articles" collection
+    db.Article.find({}).then(function(dbArticle) {
+      // for each existing article,
+      dbArticle.forEach(art => {
+        // push its title into the existingTitles array
+        existingTitles.push(art.title);
+      });
+      // now we have an array of the titles of all existing articles in the db
+      // console.log(existingTitles);
 
-// OLD SAMPLE API ROUTES
+      // helper function for existingTitles.every(), below
+      // checks .every() existing title to see if it matches an incoming title
+      function checkMatch(title) {
+        // returns TRUE if an existing title DOES NOT MATCH incoming title
+        return title !== checkArticle.title;
+      }
 
+      // if ALL existingTitles DO NOT MATCH an incoming title
+      if (existingTitles.every(checkMatch) === true) {
+        // console.log("It's true!");
 
-// GET ROUTES
+        // then .create() a new Article document in "articles" collection
+        db.Article.create(checkArticle)
+          .then(function(dbArticle) {
+            // console.log(dbArticle);
+            // console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
+            console.log("NEW ARTICLE ADDED TO DB: " + dbArticle.title);
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+      } else {
+        // otherwise let console know the article already exists, do nothing
+        console.log("SCRAPED ARTICLE ALREADY EXISTS: " + checkArticle.title);
+      }
+    });
+  }
+
+  // ========================================================
+  // ========================================================
+
+  // OLD SAMPLE API ROUTES
+
+  // GET ROUTES
   // ========================================================
   // ========================================================
 
