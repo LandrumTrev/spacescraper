@@ -1,0 +1,93 @@
+{{!-- ====================================================
+spacescraper :: Scraping news from space with Mongo!
+MVC with Handlebars,  Node, Express, MongoDB, Mongoose, Axios, and Cheerio.
+©2018 Richard Trevillian
+University of Richmond (Virginia)
+Full Stack Developer Bootcamp (July 2018)
+====================================================
+views/articles.handlebars
+DISPLAY ALL ARTICLES FROM spacescraper DB > articles COLLECTION
+==================================================== --}}
+
+<div id="home">
+  <div class="container">
+    <div class="row">
+      <div class="col-8 offset-2">
+
+        {{!-- {{msg}} data defined in htmlRoutes "/" get call --}}
+        <h1>{{msg}}</h1>
+
+        <h3>Good reading for space mongeese!</h3>
+
+        {{#each articles}}
+          {{!-- {{#if title}} --}}
+          {{!-- <p>{{title}}</p> --}}
+          {{!-- {{> cats/cat-block sleep=false}} --}}
+          <div class="card mt-4">
+            <div class="card-body">
+              <img src="{{thumbnail}}">
+              <a href="{{link}}" target="_blank">
+                <h5 class="card-title">{{title}}</h5>
+              </a>
+              <a href="{{authorLink}}" target="_blank">
+                <p>{{author}}</p>
+              </a>
+              <p>{{pubDate}}</p>
+              <p>{{excerpt}}</p>
+              <a href="#">leave a comment</a>
+            </div>
+          </div>
+          {{!-- {{/if}} --}}
+        {{/each}}
+
+
+        {{!-- <ul id="example-list" class="list-group"> --}}
+
+        {{!-- {{examples}} is (dbExamples) data from htmlRoutes "/" call --}}
+        {{!-- #each is a Handlebars loop; each object in (dbExamples) gets an <li> --}}
+        {{!-- {{#each examples}} --}}
+
+        {{!-- data-id="{{this.id}}" is the .id property of a row item from (dbExamples) --}}
+        {{!-- this is the data-id of the <li> container --}}
+        {{!-- <li data-id="{{this.id}}" class="list-group-item"> --}}
+
+        {{!-- "example/{{this.id}}" link handled by htmlRoutes "example/id" --}}
+        {{!-- {{this.text}} is the .text property (db col) of a row item from (dbExamples) --}}
+        {{!-- <a href="example/{{this.id}}">{{this.text}}</a> --}}
+
+        {{!-- <button class="btn btn-danger float-right delete">ｘ</button> --}}
+        {{!-- </li> --}}
+
+        {{!-- end the #each - /each Handlebars loop item; loop another row from (dbExamples) --}}
+        {{!-- {{/each}} --}}
+
+        {{!-- </ul> --}}
+
+
+        {{!-- Submit (POST) form for adding a new Text headline with a Description --}}
+        {{!-- <form class="clearfix mb-4" action="POST"> --}}
+
+        {{!-- <div class="form-group"> --}}
+        {{!-- <label for="example-text">Example Text</label> --}}
+        {{!-- INPUT for Text headline, id="example-text" --}}
+        {{!-- <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text"> --}}
+        {{!-- </div> --}}
+
+        {{!-- <div class="form-group"> --}}
+        {{!-- <label for="example-description">Example Description</label> --}}
+        {{!-- INPUT for Description to go with Text headline, id="example-description" --}}
+        {{!-- <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea> --}}
+        {{!-- </div> --}}
+
+        {{!-- <button id="submit" class="btn btn-primary float-right">Submit</button> --}}
+
+        {{!-- </form> --}}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  console.log("logging is go!");
+</script>

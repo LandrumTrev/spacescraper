@@ -14,16 +14,11 @@ var db = require("../models");
 
 // export routes for import by server.js, used by Express
 module.exports = function(app) {
-  // ====================================================
 
-  // default demo INDEX route
-  // app.get("/", function(req, res) {
-  //   res.send("Scraping space with a mongoose!");
-  // });
+  // ====================================================
 
   // root call renders index.handlebars
   app.get("/", function(req, res) {
-
     res.render("index", {
       msg: "Welcome Intergalactic Mongeese!"
     });
@@ -35,6 +30,51 @@ module.exports = function(app) {
     //   });
     // });
   });
+
+  // =====================================================
+
+  // htmlRoute for getting all Article collection docs from the db
+  app.get("/articles", function(req, res) {
+    // async mongoose return all documents in "articles" collection
+    db.Article.find({})
+      // data returned placed into promise func's dbArticle param
+      .then(function(dbArticle) {
+        // check out the structure of the data returned in dbArticle
+        console.log(dbArticle[0]);
+        console.log("\n");
+        // result renders article.handlebars view
+        res.render("articles", {
+          // data passed into the Handlebars view render:
+          // hardcoded key:value data property
+          msg: "Articles...from Space!",
+          // data returned from mongoose db query
+          articles: dbArticle
+        }); // end handlbars render
+      }) // end .then()
+      .catch(function(err) {
+        // if error, send JSON(err) to browser
+        // instead of article.handlebars render()
+        res.json(err);
+      }); // end .catch()
+  }); // end app.get()
+
+
+  // // Route for getting all Articles from the db
+  // app.get("/articles", function(req, res) {
+  //   // Grab every document in the Articles collection
+  //   db.Article.find({})
+  //     .then(function(dbArticle) {
+  //       // If we were able to successfully find Articles, send them back to the client
+  //       res.json(dbArticle);
+  //     })
+  //     .catch(function(err) {
+  //       // If an error occurred, send it to the client
+  //       res.json(err);
+  //     });
+  // });
+
+  // =====================================================
+
 
   // Load page with user's projects
   // app.get("/:user", function(req, res) {
