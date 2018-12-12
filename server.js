@@ -27,7 +27,10 @@ app.use(express.static("public"));
 
 let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/spacescraperdb";
 
-mongoose.connect(MONGODB_URI);
+mongoose.connect(
+  MONGODB_URI,
+  { useNewUrlParser: true }
+);
 
 // ROUTES
 
@@ -93,15 +96,26 @@ app.get("/scrape", function(req, res) {
       // .push() each filled article object into the results Array
       results.push(article);
 
-      console.log(article);
-      console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
+      // console.log(article);
+      // console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
+
+      // ==============================
+
+      // use mongoose model Article to .create() a new document in "articles" collection
+      db.Article.create(article)
+        .then(function(dbArticle) {
+          console.log(dbArticle);
+          console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+      // end Article.create
     }); // end cheerio.each
 
-    // send the "results" Array to the browers as JSON for "/scrape" 
+    // send the "results" Array to the browers as JSON for "/scrape"
     res.json(results);
-
   }); // end axios.get.then
-
 }); // end app.get
 
 // SERVER
