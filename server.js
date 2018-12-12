@@ -31,7 +31,12 @@ mongoose.connect(MONGODB_URI);
 
 // ROUTES
 
-// GET route to scrape News from spacenews.com
+// why isn't "/" getting sent this message?
+app.get("/", function(req, res) {
+  res.send("Scraping space with a mongoose!");
+});
+
+// GET route to scrape news page from spacenews.com
 // https://spacenews.com/segment/news/
 app.get("/scrape", function(req, res) {
   axios.get("https://spacenews.com/segment/news/").then(function(response) {
@@ -91,7 +96,12 @@ app.get("/scrape", function(req, res) {
       console.log(article);
       console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
     }); // end cheerio.each
+
+    // send the "results" Array to the browers as JSON for "/scrape" 
+    res.json(results);
+
   }); // end axios.get.then
+
 }); // end app.get
 
 // SERVER

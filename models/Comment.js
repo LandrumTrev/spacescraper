@@ -5,12 +5,6 @@
 // University of Richmond (Virginia)
 // Full Stack Developer Bootcamp (July 2018)
 // ====================================================
-// server.js - settings for the Express web server
+// models/Comment.js - mongoose Model for User Comments on Articles
 // ====================================================
 
-// Exporting an object containing all of our models
-
-module.exports = {
-  Article: require("./Article"),
-  Comment: require("./Comment")
-};
