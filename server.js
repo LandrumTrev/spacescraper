@@ -10,21 +10,28 @@
 
 // DEPENDENCIES
 let express = require("express");
+var exphbs = require("express-handlebars");
 let logger = require("morgan");
 let mongoose = require("mongoose");
-let axios = require("axios");
-let cheerio = require("cheerio");
 
-// CONFIG
-let db = require("./models");
-let PORT = 3000;
+// require("dotenv").config();
+// intall dotenv to use .env for secure auth and API keys
+// Heroku also uses a .env for PORT selection
+// npm i dotenv
+// add .env file to root, add .env to .gitignore
+
+// Express CONFIG
+// let PORT = 3000;
+let PORT = process.env.PORT || 3000;
 let app = express();
 
+// Express MIDDLEWARE
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+// Mongoose CONFIG
 let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/spacescraperdb";
 
 mongoose.connect(
@@ -32,93 +39,23 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 
+// Handlebars CONFIG
+app.engine(
+  "handlebars",
+  exphbs({
+    defaultLayout: "main"
+  })
+);
+app.set("view engine", "handlebars");
+
 // ROUTES
-
-// why isn't "/" getting sent this message?
-app.get("/", function(req, res) {
-  res.send("Scraping space with a mongoose!");
-});
-
-// GET route to scrape news page from spacenews.com
-// https://spacenews.com/segment/news/
-app.get("/scrape", function(req, res) {
-  axios.get("https://spacenews.com/segment/news/").then(function(response) {
-    // console.log(response);
-    // console.log(response.data);
-    let $ = cheerio.load(response.data);
-    // console.log($);
-
-    // An empty array to save the data that we'll scrape
-    let results = [];
-
-    $(".launch-article").each(function(i, element) {
-      // console.log(element);
-
-      const article = {};
-
-      article.link = $(element)
-        .find(".launch-title")
-        .find("a")
-        .attr("href");
-      // console.log(article.link + "\n");
-
-      article.title = $(element)
-        .find(".launch-title")
-        .find("a")
-        .text();
-      // console.log(article.title + "\n");
-
-      article.author = $(element)
-        .find(".author")
-        .text();
-      // console.log(article.author + "\n");
-
-      article.authorLink = $(element)
-        .find(".author")
-        .attr("href");
-      // console.log(article.authorLink + "\n");
-
-      article.pubDate = $(element)
-        .find(".pubdate")
-        .attr("datetime");
-      // console.log(article.pubDate + "\n");
-
-      article.excerpt = $(element)
-        .find(".post-excerpt")
-        .text();
-      // console.log(article.excerpt + "\n");
-
-      article.thumbnail = $(element)
-        .find(".wp-post-image")
-        .attr("src");
-      // console.log(article.thumbnail + "\n");
-
-      // .push() each filled article object into the results Array
-      results.push(article);
-
-      // console.log(article);
-      // console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
-
-      // ==============================
-
-      // use mongoose model Article to .create() a new document in "articles" collection
-      db.Article.create(article)
-        .then(function(dbArticle) {
-          console.log(dbArticle);
-          console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-      // end Article.create
-    }); // end cheerio.each
-
-    // send the "results" Array to the browers as JSON for "/scrape"
-    res.json(results);
-  }); // end axios.get.then
-}); // end app.get
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
 
 // SERVER
 app.listen(PORT, function() {
   console.log("Listening for space being scraped on PORT " + PORT + "!");
 });
+
+// Does Express need to be exported from server.js?
+module.exports = app;
