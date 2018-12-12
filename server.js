@@ -9,23 +9,23 @@
 // ====================================================
 
 // DEPENDENCIES
-var express = require("express");
-var logger = require("morgan");
-var mongoose = require("mongoose");
-var axios = require("axios");
-var cheerio = require("cheerio");
+let express = require("express");
+let logger = require("morgan");
+let mongoose = require("mongoose");
+let axios = require("axios");
+let cheerio = require("cheerio");
 
 // CONFIG
-var db = require("./models");
-var PORT = 3000;
-var app = express();
+let db = require("./models");
+let PORT = 3000;
+let app = express();
 
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/spacescraperdb";
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/spacescraperdb";
 
 mongoose.connect(MONGODB_URI);
 
@@ -37,33 +37,59 @@ app.get("/scrape", function(req, res) {
   axios.get("https://spacenews.com/segment/news/").then(function(response) {
     // console.log(response);
     // console.log(response.data);
-    var $ = cheerio.load(response.data);
+    let $ = cheerio.load(response.data);
     // console.log($);
 
     // An empty array to save the data that we'll scrape
-    var results = [];
+    let results = [];
 
     $(".launch-article").each(function(i, element) {
       // console.log(element);
 
-      var title = $(element)
-        .find(".launch-title")
-        .find("a")
-        .text();
-      console.log(title + "\n");
+      const article = {};
 
-      var link = $(element)
+      article.link = $(element)
         .find(".launch-title")
         .find("a")
         .attr("href");
-      console.log(link + "\n");
+      // console.log(article.link + "\n");
 
-      // .push() an object of each article's elements into results Array
-      results.push({
-        title: title,
-        link: link
-      });
+      article.title = $(element)
+        .find(".launch-title")
+        .find("a")
+        .text();
+      // console.log(article.title + "\n");
 
+      article.author = $(element)
+        .find(".author")
+        .text();
+      // console.log(article.author + "\n");
+
+      article.authorLink = $(element)
+        .find(".author")
+        .attr("href");
+      // console.log(article.authorLink + "\n");
+
+      article.pubDate = $(element)
+        .find(".pubdate")
+        .attr("datetime");
+      // console.log(article.pubDate + "\n");
+
+      article.excerpt = $(element)
+        .find(".post-excerpt")
+        .text();
+      // console.log(article.excerpt + "\n");
+
+      article.thumbnail = $(element)
+        .find(".wp-post-image")
+        .attr("src");
+      // console.log(article.thumbnail + "\n");
+
+      // .push() each filled article object into the results Array
+      results.push(article);
+
+      console.log(article);
+      console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
     }); // end cheerio.each
   }); // end axios.get.then
 }); // end app.get
