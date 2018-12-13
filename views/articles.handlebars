@@ -37,16 +37,16 @@ DISPLAY ALL ARTICLES FROM spacescraper DB > articles COLLECTION
                 <form class="comment-form clearfix mb-4" data-article="{{_id}}" action="POST">
 
                   <div class="form-group">
-                    <label for="example-text">username</label>
-                    <input type="text" id="example-text" class="form-control" placeholder="username">
+                    {{!-- <label>username</label> --}}
+                    <input type="text" class="username-input form-control" placeholder="username" data-article="{{_id}}">
                   </div>
 
                   <div class="form-group">
-                    <label for="example-description">comment</label>
-                    <textarea class="form-control" id="example-description" placeholder="your comments"></textarea>
+                    {{!-- <label>comment</label> --}}
+                    <textarea class="comment-input form-control" placeholder="your comments" data-article="{{_id}}"></textarea>
                   </div>
 
-                  <button id="submit" class="btn btn-primary float-right">Submit</button>
+                  <button class="add-comment btn btn-primary float-right" data-article="{{_id}}">add comment</button>
 
                 </form>
               </div>

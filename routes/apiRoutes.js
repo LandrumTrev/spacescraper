@@ -26,8 +26,6 @@ let cheerio = require("cheerio");
 
 // export routes for import by server.js, used by Express
 module.exports = function(app) {
-
-
   // GET route to scrape news page from spacenews.com
   // https://spacenews.com/segment/news/
   app.get("/scrape", function(req, res) {
@@ -141,6 +139,28 @@ module.exports = function(app) {
     });
   }
 
+  // ========================================================
+
+  // POST a new Comment to the db
+  app.post("/api/comments/:articleid", function(req, res) {
+    // console.log(req.params.articleid);
+    // console.log(req.body);
+
+    var comment = req.body.data;
+    console.log(comment);
+
+    db.Comment.create(comment)
+      .then(function(dbComment) {
+        // console.log(dbComment);
+        // console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
+        console.log("NEW COMMENT ADDED TO DB: " + dbComment);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  });
+
+  // ========================================================
   // ========================================================
   // ========================================================
 

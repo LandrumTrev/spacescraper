@@ -55,7 +55,9 @@ require("./routes/htmlRoutes")(app);
 
 // SERVER
 app.listen(PORT, function() {
+  console.log("\n");
   console.log("Listening for space being scraped on PORT " + PORT + "!");
+  console.log("\n");
 });
 
 // Does Express need to be exported from server.js?

@@ -8,7 +8,6 @@
 // models/Comment.js - mongoose Model for User Comments on Articles
 // ====================================================
 
-
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 
@@ -17,7 +16,15 @@ let CommentSchema = new Schema({
     type: String,
     required: true
   },
-  commentDatetime: {
+  commentCreated: {
+    type: Date,
+    default: Date.now
+  },
+  articleId: {
+    type: String,
+    required: true
+  },
+  username: {
     type: String,
     required: true
   },
