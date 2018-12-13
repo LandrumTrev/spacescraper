@@ -26,6 +26,7 @@ let cheerio = require("cheerio");
 
 // export routes for import by server.js, used by Express
 module.exports = function(app) {
+
   // GET route to scrape news page from spacenews.com
   // https://spacenews.com/segment/news/
   app.get("/scrape", function(req, res) {
@@ -153,7 +154,11 @@ module.exports = function(app) {
       .then(function(dbComment) {
         // console.log(dbComment);
         // console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
-        console.log("NEW COMMENT ADDED TO DB: " + dbComment);
+        // console.log("NEW COMMENT ADDED TO DB: " + dbComment);
+        return db.Article.findOneAndUpdate({}, { $push: { comments: dbComment._id } }, { new: true });
+      })
+      .then(function(dbArticle) {
+        console.log(dbArticle);
       })
       .catch(function(err) {
         console.log(err);

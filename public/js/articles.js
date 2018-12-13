@@ -15,6 +15,7 @@ $(document).ready(function() {
   // console.log("articles.js logging is go!");
 
   // ==========================================================
+  // ==========================================================
 
   // by default, hide all comment form areas on page load
   $(".comment-form").hide();
@@ -76,11 +77,9 @@ $(document).ready(function() {
     });
 
     // empty out the username and comment input fields after POST
-    $(".username-input[data-article='" + thisArticleId + "']")
-    .val("");
-    $(".comment-input[data-article='" + thisArticleId + "']")
-    .val("");
-
+    $(".username-input[data-article='" + thisArticleId + "']").val("");
+    $(".comment-input[data-article='" + thisArticleId + "']").val("");
+    $(".comment-form[data-article='" + thisArticleId + "']").hide();
   });
 
   // ==========================================================
