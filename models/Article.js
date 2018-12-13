@@ -43,7 +43,17 @@ let ArticleSchema = new Schema({
   comment: {
     type: Schema.Types.ObjectId,
     ref: "Comment"
-  }
+  },
+  articleCreated: {
+    type: Date,
+    default: Date.now
+  },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 let Article = mongoose.model("Article", ArticleSchema);

@@ -32,6 +32,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Mongoose CONFIG
+// will use db if exists, or will create db if does not exist
 let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/spacescraperdb";
 
 mongoose.connect(

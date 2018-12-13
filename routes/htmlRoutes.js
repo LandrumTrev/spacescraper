@@ -29,6 +29,10 @@ module.exports = function(app) {
   app.get("/articles", function(req, res) {
     // async mongoose return all documents in "articles" collection
     db.Article.find({})
+      // sort the display order by day in pubDate, then by datetime of articleCreated
+      .sort({ pubDate: -1, articleCreated: -1 })
+      // populate comments: of each Article with full data of associated comments
+      .populate("comments")
       // data returned placed into promise func's dbArticle param
       .then(function(dbArticle) {
         // check out the structure of the data returned in dbArticle
