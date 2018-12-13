@@ -81,8 +81,6 @@ $(document).ready(function() {
     $(".comment-input[data-article='" + thisArticleId + "']").val("");
     $(".comment-form[data-article='" + thisArticleId + "']").hide();
 
-    location.reload();
-
   });
 
   // ==========================================================

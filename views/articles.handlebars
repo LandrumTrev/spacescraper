@@ -22,7 +22,7 @@ DISPLAY ALL ARTICLES FROM spacescraper DB > articles COLLECTION
         {{!-- articles: is all docs from "articles" collection --}}
         {{#each articles}}
           <div class="card mt-4">
-            <div class="card-body">
+            <div id="{{_id}}" class="card-body">
               <img src="{{thumbnail}}">
               <a href="{{link}}" target="_blank">
                 <h5 class="card-title">{{title}}</h5>
@@ -32,7 +32,7 @@ DISPLAY ALL ARTICLES FROM spacescraper DB > articles COLLECTION
               </a>
               <p>{{pubDate}}</p>
               <p>{{excerpt}}</p>
-              <a href="#" class="toggle-comment" data-article="{{_id}}">leave a comment</a>
+              <a class="toggle-comment" data-article="{{_id}}">leave a comment:</a>
               <form class="comment-form clearfix mb-4" data-article="{{_id}}" action="POST">
                 <div class="form-group">
                   <input type="text" class="username-input form-control" placeholder="username" data-article="{{_id}}">
