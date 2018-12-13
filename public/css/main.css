@@ -12,9 +12,17 @@ public/styles.css
   line-height: 2.5;
 } */
 
+@import url("https://fonts.googleapis.com/css?family=Barlow+Condensed:200,200i,400,600");
+
+body {
+  font-family: "Barlow Condensed", sans-serif;
+}
+
 body {
   /* background-color: rgb(197, 219, 238); */
-  background: linear-gradient(217deg, rgba(9, 63, 104, 0.8), rgba(9, 63, 104, 0.8) 70.71%), linear-gradient(33deg, rgba(255, 0, 0, 0.8), rgba(0,255,0,0) 70.71%), linear-gradient(336deg, rgba(0,0,255,.8), rgba(6, 6, 128, 0) 70.71%), #000;
+  background: linear-gradient(217deg, rgba(9, 63, 104, 0.8), rgba(9, 63, 104, 0.8) 70.71%),
+    linear-gradient(33deg, rgba(255, 0, 0, 0.8), rgba(0, 255, 0, 0) 70.71%), linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(6, 6, 128, 0) 70.71%),
+    #000;
 }
 
 .navbar {
@@ -22,391 +30,60 @@ body {
 }
 
 .nav-logo {
-  /* width: 200px; */
+  width: 200px;
 }
 
-/* BODY STYLES ABOVE */
-/* =================== */
-/* HEADER BAR STYLES BELOW */
+.article-image {
+  width: 100%;
+}
 
-/* #topbar {
-  position: fixed;
-  z-index: 3;
-  height: 50px;
-  background-color: rgb(33, 71, 104);
-} */
-
-/* #topbar-content {
-  height: 100%;
-} */
-
-/* #logo-box {
-  float: left;
-  height: 100%;
-  color: rgb(215, 227, 237);
-  font-weight: 100;
-  line-height: 3rem;
-  font-size: 1.8rem;
-  letter-spacing: .1rem;
-} */
-
-/* #logo-box span {
-  height: 100%;
-  font-weight: 700;
-  letter-spacing: .05rem;
-} */
-
-/* #duck-icon {
-  position: relative;
-  float: left;
-  top: 14px;
-  height: 23px;
-  margin-right: 12px;
-  margin-left: 2px;
-} */
-
-/* .nav-thing {
-  float: right;
-  margin-left: 10px;
-  height: 100%;
-  color: rgb(215, 227, 237);
-  font-weight: 100;
-  line-height: 3rem;
-  font-size: 1.5rem;
-  letter-spacing: .1rem;
-} */
-
-/* .nav-thing a {
-  text-decoration: none;
-} */
-
-/* unvisited link */
-/* .nav-thing a:link {
-  color: rgb(215, 227, 237);
-} */
-
-/* visited link */
-/* .nav-thing a:visited {
-  color: rgb(215, 227, 237);
-} */
-
-/* mouse over link */
-/* .nav-thing a:hover {
-  color: rgb(215, 227, 237);
-} */
-
-/* selected link */
-/* .nav-thing a:active {
-  color: rgb(215, 227, 237);
-} */
-
-/* #signin-link {
-  text-decoration: none;
-} */
-
-/* HEADER BAR STYLES ABOVE */
-/* =================== */
-/* LIST STYLES BELOW */
-
-/* #project-info p {
-  font-size: 1.1rem;
-  line-height: .8rem;
-  margin-top: 70px;
-} */
-
-/* #project-info p strong {
-  color: maroon;
-} */
-
-/* =================== */
-
-/* #project-list p {
-  font-size: 1.1rem;
-  line-height: .8rem;
-  margin-top: 20px;
-} */
-
-/* #project-list p strong {
-  color: maroon;
-} */
-
-/* =================== */
-
-/* =================== */
-/* on signin.handlebars */
-/* =================== */
-
-/* .add-project-button {
-  color: rgb(33, 71, 104);
-  background-color: rgb(255, 255, 255);
-} */
-
-/* .add-project-button:hover {
-  color: rgb(255, 255, 255);
-  background-color: rgb(33, 71, 104);
-} */
-
-/* .add-project-name {
-  border: .5px solid rgb(170, 170, 170);
-} */
-
-/* =================== */
-
-/* .delete-project {
-  color: rgb(196, 109, 132);
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(33, 71, 104);
-
-} */
-
-/* .delete-project:hover {
-  color: rgb(255, 255, 255);
-  background-color: rgb(203, 141, 157);
-} */
-
-/* .goto-project {
-  width: 30px;
-  color: rgb(255, 255, 255);
-  background-color: rgb(33, 71, 104);
-  border: 1px solid rgb(33, 71, 104);
-} */
-
-/* .goto-project:hover {
-  color: rgb(33, 71, 104);
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(33, 71, 104);
-} */
-
-/* .pname {
-  border: .5px solid rgb(33, 71, 104);
-} */
-
-/* .project-edit-group {
-  box-shadow: 3px 3px 8px rgb(205, 211, 216);
-} */
-
-/* =================== */
-/* on workspace.handlebars */
-/* =================== */
-
-/* .topicbox {
-  background-color: rgb(215, 227, 237);
+.card {
   border: none;
-  padding: 15px 0px 0px 0px;
-} */
+}
 
-/* .topicbox:hover {
-  background-color: rgb(215, 227, 237);
-  border: none;
-} */
+.card-title {
+  font-weight: 600;
+  font-size: 2rem;
+  color: #444;
+}
 
-/* .rescont {
-  font-size: .8rem;
-  line-height: 1.1rem;
-  box-shadow: 3px 3px 8px rgb(205, 211, 216);
+.byline {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #444;
+}
 
-} */
+.byline a {
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: rgb(49, 123, 201);
+}
 
-/* =================== */
+.article-excerpt {
+  font-weight: 200;
+  font-size: 1.2rem;
+  color: #666;
+}
 
-/* #add-topic-button {
-  color: rgb(255, 255, 255);
-  background-color: rgb(121, 143, 162);
-} */
+.leave-comment {
+  font-weight: 600;
+  font-size: 1rem;
+  color: rgb(155, 30, 30);
+}
 
-/* #add-topic-button:hover {
-  color: rgb(33, 71, 104);
-  background-color: rgb(255, 255, 255);
-} */
+.commenting-user {
+  font-weight: 200;
+  /* font-style: italic; */
+  font-size: .9rem;
+  color: rgb(148, 164, 194);
+}
 
-/* #open-all-topics {
-  color: rgb(255, 255, 255);
-  background-color: rgb(33, 71, 104);
-} */
-
-/* #open-all-topics:hover {
-  color: rgb(33, 71, 104);
-  background-color: rgb(255, 255, 255);
-} */
-
-/* #new-topic-open-resources {
-  box-shadow: 3px 3px 8px rgb(205, 211, 216);
-} */
-
-/* #add-topic-name {
-  border: .5px solid rgb(170, 170, 170);
-} */
-
-/* =================== */
-
-/* .delete-topic {
-  color: rgb(203, 141, 157);
-  background-color: rgb(255, 255, 255);
-} */
-
-/* .delete-topic:hover {
-  color: rgb(255, 255, 255);
-  background-color: rgb(203, 141, 157);
-} */
-
-/* .toggle-topic-resources {
-  color: rgb(255, 255, 255);
-  background-color: rgb(196, 109, 132);
-} */
-
-/* .toggle-topic-resources:hover {
-  color: rgb(196, 109, 132);
-  background-color: rgb(255, 255, 255);
-} */
-
-/* .tname {
-  border: .5px solid rgb(196, 109, 132);
-} */
-
-/* .topic-edit-group {
-  box-shadow: 3px 3px 8px rgb(205, 211, 216);
-} */
-
-/* =================== */
-
-/* .add-resource {
-  color: rgb(253, 253, 253);
-  background-color: rgb(123, 176, 220);
-  border: .5px solid rgb(170, 170, 170);
-} */
-
-/* .add-resource-input {
-  background-color: rgb(215, 227, 237);
-} */
-
-/* .add-resource-group {
-  box-shadow: 3px 3px 8px rgb(205, 211, 216);
-} */
-
-/* =================== */
-
-/* .delete-resource {
-  color: rgb(123, 176, 220);
-  background-color: rgb(255, 255, 255);
-  border: .5px solid rgb(123, 176, 220);
-} */
-
-/* .delete-resource:hover {
-  color: rgb(255, 255, 255);
-  background-color: rgb(123, 176, 220);
-  border: .5px solid rgb(123, 176, 220);
-} */
-
-/* .toggle-resource {
-  color: rgb(255, 255, 255);
-  background-color: rgb(81, 131, 172);
-  border: .5px solid rgb(123, 176, 220);
-} */
-
-/* .toggle-resource:hover {
-  color: rgb(81, 131, 172);
-  background-color: rgb(255, 255, 255);
-  border: .5px solid rgb(123, 176, 220);
-} */
-
-/* .rname {
-  border: .5px solid rgb(123, 176, 220);
-} */
-
-/* .resource-edit-group {
-  box-shadow: 3px 3px 8px rgb(205, 211, 216);
-} */
-
-/* LIST STYLES ABOVE */
-/* =================== */
-/* WORD PROCESSOR STYLES BELOW */
-
-/* .ql-toolbar {
-  background-color: rgb(183, 201, 216);
-  box-shadow: 3px 3px 18px rgb(205, 211, 216);
-} */
-
-/* .ql-picker-label {
-  font-size: .6rem;
-} */
-
-/* #editor {
-  background-color: rgb(254, 254, 254);
-  overflow: scroll;
-  height: 80vh;
-  box-shadow: 3px 3px 18px rgb(205, 211, 216);
-} */
-
-/* WORD PROCESSOR STYLES ABOVE */
-/* =================== */
-/* SPLASH PAGE STYLES BELOW */
-
-/* #duckFloat {
-  position: absolute;
-  left: 39%;
-  bottom: -109%;
-  width: 200px;
-  height: 200px;
-  border: none;
-  text-align: center;
-  border-radius: 50%;
-  background-color: rgb(33, 71, 104);
-  animation-name: clickHere;
-  animation-duration: 2.8s;
-} */
-
-/* @keyframes clickHere {
-  0% {
-    bottom: 100%;
-  }
-
-  100% {
-    bottom: -109%;
-  }
-} */
-
-/* #sign-in {
-  bottom: -2em;
-  position: relative;
-  color: rgb(172, 33, 33);
-  font-weight: 900;
-  background-color: rgb(215, 227, 237);
-  border: none;
-} */
-
-/* #duckPic {
-  height: 106px;
-  position: relative;
-  top: 20%;
-} */
-
-/* #landingTitle {
-  left: 2%;
-    position: relative;
-    top: 199%;
-  animation: fadeInFromNone 2.8s ease-in;
-} */
-
-/* 
-@keyframes fadeInFromNone {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 100%;
-
-  }
-} */
-
-/* SPLASH PAGE STYLES ABOVE */
-/* =================== */
-/* MODAL BOX STYLES BELOW */
-
-/* .modal-box {
-  color: rgb(33, 71, 104);
-  background-color: rgb(215, 227, 237);
-} */
+.users-comment {
+  font-weight: 400;
+  /* font-style: italic; */
+  font-size: .9rem;
+  color: rgb(67, 90, 136);
+}
 
 /* MODAL BOX STYLES ABOVE */
 /* =================================== */
@@ -416,146 +93,63 @@ body {
 /* Extra small devices (portrait phones, less than 576px)
 No media query for `xs` since this is the default in Bootstrap */
 @media (max-width: 576px) {
-
   .nav-logo {
     width: 200px;
     margin: 10px auto;
   }
-  
-  /* #duckFloat {
-    position: absolute;
-    left: 27%;
-    bottom: -221%;
-    width: 200px;
-    height: 200px;
-    border: none;
-    text-align: center;
-    border-radius: 50%;
-    background-color: rgb(33, 71, 104);
-    animation-name: clickHere;
-    animation-duration: 2.8s;
-  } */
 
-  /* @keyframes clickHere {
-    0% {
-      bottom: 100%;
-    }
-
-    100% {
-      bottom: -221%;
-    }
-  } */
+  .card-columns {
+    column-count: 1;
+  }
 }
 
 /* =================================== */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-
   .nav-logo {
     width: 180px;
   }
-  
-  /* #duckFloat {
-    position: absolute;
-    left: 27%;
-    bottom: -221%;
-    width: 200px;
-    height: 200px;
-    border: none;
-    text-align: center;
-    border-radius: 50%;
-    background-color: rgb(33, 71, 104);
-    animation-name: clickHere;
-    animation-duration: 2.8s;
-  } */
 
-  /* @keyframes clickHere {
-    0% {
-      bottom: 100%;
-    }
-
-    100% {
-      bottom: -221%;
-    }
-  } */
+  .card-columns {
+    column-count: 1;
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-
   .nav-logo {
     width: 230px;
   }
-  
-  /* #duckFloat {
-    position: absolute;
-    left: 24%;
-    bottom: -292%;
-    width: 200px;
-    height: 200px;
-    border: none;
-    text-align: center;
-    border-radius: 50%;
-    background-color: rgb(33, 71, 104);
-    animation-name: clickHere;
-    animation-duration: 2.8s;
-  } */
 
-  /* @keyframes clickHere {
-    0% {
-      bottom: 100%;
-    }
-
-    100% {
-      bottom: -292%;
-    }
-  } */
+  .card-columns {
+    column-count: 2;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-
-  /* body {
-    background-color: #fff;
-  } */
-
-  /* #landingTitle {
-    top: 270px;
-  } */
-
-  /* #duckFloat {
-    position: absolute;
-    left: 39%;
-    bottom: -174%;
-    width: 200px;
-    height: 200px;
-    border: none;
-    text-align: center;
-    border-radius: 50%;
-    background-color: rgb(33, 71, 104);
-    animation-name: clickHere;
-    animation-duration: 2.8s;
-  } */
-
-  /* @keyframes clickHere {
-    0% {
-      bottom: 100%;
-    }
-
-    100% {
-      bottom: -174%;
-    }
-  } */
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  .card-columns {
+    column-count: 3;
+  }
+}
 
-  /* body {
-    background-color: aliceblue;
-  } */
-  
+/* MXL full screen (large monitors, 1400px and up) */
+@media (min-width: 1400px) {
+  .card-columns {
+    column-count: 4;
+  }
+}
+
+/* XXL full screen (large monitors, 1800px and up) */
+@media (min-width: 1800px) {
+  .card-columns {
+    column-count: 5;
+  }
 }
 
 /* MEDIA QUERIES FOR BREAKPOINTS ABOVE */

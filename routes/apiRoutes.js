@@ -10,14 +10,6 @@
 
 // jQuery calls from script.js:
 
-// GET stuff
-
-// POST stuff
-
-// DELETE stuff
-
-// PUT stuff
-
 // require all table data from db as ORM Sequelize models
 let db = require("../models");
 
@@ -29,20 +21,23 @@ module.exports = function(app) {
   // GET route to scrape news page from spacenews.com
   // https://spacenews.com/segment/news/
   app.get("/scrape", function(req, res) {
+
+    // have axios scrape a page and return its data as (response)
     axios.get("https://spacenews.com/segment/news/").then(function(response) {
       // console.log(response);
       // console.log(response.data);
+
+      // cheerio acts like (and uses) jQuery to traverse axios-scraped data
       let $ = cheerio.load(response.data);
       // console.log($);
-
-      // An empty array to save the data that we'll scrape
-      let results = [];
 
       $(".launch-article").each(function(i, element) {
         // console.log(element);
 
+        // object to hold all properties of a scraped article
         const article = {};
 
+        // tack scraped data onto the article object
         article.link = $(element)
           .find(".launch-title")
           .find("a")
@@ -151,12 +146,9 @@ module.exports = function(app) {
 
     db.Comment.create(comment)
       .then(function(dbComment) {
-        // console.log(dbComment);
         // console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
         // console.log("NEW COMMENT ADDED TO DB: " + dbComment);
 
-        // console.log(req.params.articleid);
-        // let articleToUpdate = { _id: req.params.articleid };
         return db.Article.findOneAndUpdate({ _id: req.params.articleid }, { $push: { comments: dbComment._id } }, { new: true });
       })
       .then(function(dbArticle) {
@@ -166,211 +158,6 @@ module.exports = function(app) {
         console.log(err);
       });
   });
-
-  // ========================================================
-  // ========================================================
-  // ========================================================
-
-  // OLD SAMPLE API ROUTES
-
-  // GET ROUTES
-  // ========================================================
-  // ========================================================
-
-  // // get the Project's projectContent Quill JSON data
-  // app.get("/api/projects/:id", function(req, res) {
-  //   db.Project.findOne({
-  //     where: {
-  //       id: req.params.id
-  //     }
-  //   }).then(function(dbProject) {
-  //     console.log(dbProject);
-  //     res.json(dbProject);
-  //   });
-  // }); // end app.get
-
-  // ========================================================
-
-  // // get the User's userName and id from the Project's UserId
-  // app.get("/api/projects/user/:projectsUserId", function(req, res) {
-  //   db.User.findOne({
-  //     where: { id: req.params.projectsUserId }
-  //   }).then(function(dbUser) {
-  //     res.json(dbUser);
-  //   });
-  // });
-
-  // ========================================================
-  // ========================================================
-
-  // POST ROUTES
-  // ========================================================
-
-  // // create a new Topic in the Project
-  // app.post("/api/projects/:project/:topicname", function(req, res) {
-  //   // console.log(req.params.project);
-  //   // console.log(req.params.topicname);
-  //   db.Topic.create({
-  //     topicName: req.params.topicname,
-  //     ProjectId: req.params.project
-  //   }).then(function(dbTopic) {
-  //     // console.log(dbTopic);
-  //     // redirect
-  //     res.redirect("back");
-  //   });
-  // });
-
-  // ========================================================
-
-  // // create a new Resource in the Topic
-  // app.post("/api/resources/:topicid/:resourcename", function(req, res) {
-  //   // console.log(req.params.resourcename);
-  //   db.Resource.create({
-  //     resourceName: req.params.resourcename,
-  //     TopicId: req.params.topicid
-  //   }).then(function(dbResource) {
-  //     // console.log(dbResource);
-  //     // redirect
-  //     res.redirect("back");
-  //   });
-  // });
-
-  // ========================================================
-  // ========================================================
-
-  // DELETE ROUTES
-  // ========================================================
-
-  // // deletes a Topic
-  // app.delete("/api/topics/:id", function(req, res) {
-  //   db.Topic.destroy({
-  //     where: {
-  //       id: req.params.id
-  //     }
-  //   }).then(function(dbTopic) {
-  //     if (dbTopic.affectedRows == 0) {
-  //       // if no rows affected (so, nothing deleted), return 404 (not found)
-  //       return res.status(404).end();
-  //     } else {
-  //       // otherwise (if item was deleted), return 200 (everything good)
-  //       res.status(200).end();
-  //       res.json(dbTopic);
-  //     }
-  //   });
-  // });
-
-  // ========================================================
-
-  // // deletes a Resource
-  // app.delete("/api/resources/:id", function(req, res) {
-  //   db.Resource.destroy({
-  //     where: {
-  //       id: req.params.id
-  //     }
-  //   }).then(function(dbResource) {
-  //     if (dbResource.affectedRows == 0) {
-  //       // if no rows affected (so, nothing deleted), return 404 (not found)
-  //       return res.status(404).end();
-  //     } else {
-  //       // otherwise (if item was deleted), return 200 (everything good)
-  //       res.status(200).end();
-  //       res.json(dbResource);
-  //     }
-  //   });
-  // });
-
-  // ========================================================
-  // ========================================================
-
-  // UPDATE (PUT) ROUTES
-  // ========================================================
-
-  // // updates the Quill wordprocessor Project Content
-  // app.put("/api/projects/:id", function(req, res) {
-  //   console.log("route request:" + req);
-  //   db.Project.update(
-  //     {
-  //       projectContent: req.body.projectContent
-  //     },
-  //     {
-  //       where: {
-  //         id: req.params.id
-  //       }
-  //     }
-  //   )
-  //     .then(function(dbProjectContent) {
-  //       res.json(dbProjectContent);
-  //     })
-  //     .catch(function(err) {
-  //       res.json(err);
-  //     });
-  // });
-
-  // ========================================================
-
-  // // updates a Resource Name
-  // app.put("/api/resource-name/:id", function(req, res) {
-  //   db.Resource.update(
-  //     {
-  //       resourceName: req.body.resourceName
-  //     },
-  //     {
-  //       where: {
-  //         id: req.params.id
-  //       }
-  //     }
-  //   )
-  //     .then(function(dbResourceName) {
-  //       res.json(dbResourceName);
-  //     })
-  //     .catch(function(err) {
-  //       res.json(err);
-  //     });
-  // });
-
-  // ========================================================
-
-  // // updates Resource Content text
-  // app.put("/api/resource-content/:id", function(req, res) {
-  //   db.Resource.update(
-  //     {
-  //       resourceContent: req.body.resourceContent
-  //     },
-  //     {
-  //       where: {
-  //         id: req.params.id
-  //       }
-  //     }
-  //   )
-  //     .then(function(dbResCont) {
-  //       res.json(dbResCont);
-  //     })
-  //     .catch(function(err) {
-  //       res.json(err);
-  //     });
-  // });
-
-  // ========================================================
-
-  // // updates a Topic Name
-  // app.put("/api/topics/:id", function(req, res) {
-  //   db.Topic.update(
-  //     {
-  //       topicName: req.body.topicName
-  //     },
-  //     {
-  //       where: {
-  //         id: req.params.id
-  //       }
-  //     }
-  //   )
-  //     .then(function(dbTopicName) {
-  //       res.json(dbTopicName);
-  //     })
-  //     .catch(function(err) {
-  //       res.json(err);
-  //     });
-  // });
 
   // ========================================================
 }; // end module.exports
