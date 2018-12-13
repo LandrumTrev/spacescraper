@@ -72,14 +72,17 @@ $(document).ready(function() {
       type: "POST",
       data: userNameAndComment
     }).then(function(result) {
-      // console.log(result);
-      location.reload();
+      console.log(result);
+      // location.reload();
     });
 
     // empty out the username and comment input fields after POST
     $(".username-input[data-article='" + thisArticleId + "']").val("");
     $(".comment-input[data-article='" + thisArticleId + "']").val("");
     $(".comment-form[data-article='" + thisArticleId + "']").hide();
+
+    location.reload();
+
   });
 
   // ==========================================================
