@@ -15,18 +15,10 @@ var db = require("../models");
 // export routes for import by server.js, used by Express
 module.exports = function(app) {
   // ====================================================
-
-  // root call renders index.handlebars
-  app.get("/", function(req, res) {
-    res.render("index", {
-      msg: "Welcome Intergalactic Mongeese!"
-    });
-  });
-
   // =====================================================
 
   // htmlRoute for getting all Article collection docs from the db
-  app.get("/articles", function(req, res) {
+  app.get("/", function(req, res) {
     // async mongoose return all documents in "articles" collection
     db.Article.find({})
       // sort the display order by day in pubDate, then by datetime of articleCreated
@@ -38,10 +30,10 @@ module.exports = function(app) {
         // check out the structure of the data returned in dbArticle
         // console.log(dbArticle[0]);
         // result renders article.handlebars view
-        res.render("articles", {
+        res.render("index", {
           // data passed into the Handlebars view render:
           // hardcoded key:value data property
-          msg: "Articles...from Space!",
+          // msg: "Articles...from Space!",
           // data returned from mongoose db query
           articles: dbArticle
         }); // end handlbars render

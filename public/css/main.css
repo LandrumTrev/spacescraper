@@ -13,7 +13,16 @@ public/styles.css
 } */
 
 body {
-  /* background-color: rgb(4, 86, 154); */
+  /* background-color: rgb(197, 219, 238); */
+  background: linear-gradient(217deg, rgba(9, 63, 104, 0.8), rgba(9, 63, 104, 0.8) 70.71%), linear-gradient(33deg, rgba(255, 0, 0, 0.8), rgba(0,255,0,0) 70.71%), linear-gradient(336deg, rgba(0,0,255,.8), rgba(6, 6, 128, 0) 70.71%), #000;
+}
+
+.navbar {
+  background-color: rgb(83, 128, 167);
+}
+
+.nav-logo {
+  /* width: 200px; */
 }
 
 /* BODY STYLES ABOVE */
@@ -408,10 +417,11 @@ body {
 No media query for `xs` since this is the default in Bootstrap */
 @media (max-width: 576px) {
 
-  body {
-    background-color: aliceblue;
+  .nav-logo {
+    width: 200px;
+    margin: 10px auto;
   }
-
+  
   /* #duckFloat {
     position: absolute;
     left: 27%;
@@ -441,10 +451,11 @@ No media query for `xs` since this is the default in Bootstrap */
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  body {
-    background-color: #fff;
-  }
 
+  .nav-logo {
+    width: 180px;
+  }
+  
   /* #duckFloat {
     position: absolute;
     left: 27%;
@@ -472,10 +483,11 @@ No media query for `xs` since this is the default in Bootstrap */
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  body {
-    background-color: aliceblue;
-  }
 
+  .nav-logo {
+    width: 230px;
+  }
+  
   /* #duckFloat {
     position: absolute;
     left: 24%;
@@ -503,9 +515,10 @@ No media query for `xs` since this is the default in Bootstrap */
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  body {
+
+  /* body {
     background-color: #fff;
-  }
+  } */
 
   /* #landingTitle {
     top: 270px;
@@ -538,9 +551,11 @@ No media query for `xs` since this is the default in Bootstrap */
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  body {
+
+  /* body {
     background-color: aliceblue;
-  }
+  } */
+  
 }
 
 /* MEDIA QUERIES FOR BREAKPOINTS ABOVE */
