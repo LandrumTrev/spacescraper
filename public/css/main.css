@@ -118,9 +118,9 @@ body {
 /* MEDIA QUERIES FOR BREAKPOINTS BELOW */
 /* =================================== */
 
-/* Extra small devices (portrait phones, less than 576px)
+/* Extra small devices (portrait phones, less than 561px)
 No media query for `xs` since this is the default in Bootstrap */
-@media (max-width: 576px) {
+@media (max-width: 561px) {
   .nav-logo {
     width: 200px;
     margin: 10px auto;
@@ -128,12 +128,25 @@ No media query for `xs` since this is the default in Bootstrap */
 
   .card-columns {
     column-count: 1;
+    margin-top: 200px;
   }
 }
 
 /* =================================== */
 
-/* Small devices (landscape phones, 576px and up) */
+/* Small devices (landscape phones, 561px and up) */
+@media (min-width: 561px) {
+  .nav-logo {
+    width: 180px;
+  }
+
+  .card-columns {
+    column-count: 1;
+    margin-top: 130px;
+  }
+}
+
+/* MS size for navbar breakpoint at 576px */
 @media (min-width: 576px) {
   .nav-logo {
     width: 180px;
@@ -141,6 +154,7 @@ No media query for `xs` since this is the default in Bootstrap */
 
   .card-columns {
     column-count: 1;
+    margin-top: 60px;
   }
 }
 
