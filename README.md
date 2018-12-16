@@ -4,7 +4,7 @@
 *Handlebars, Node, Express, MongoDB, Mongoose ODM, Axios, Cheerio, JavaScript, jQuery, Heroku, mLab, CSS, Bootstrap, Font Awesome. MVC responsive web app that scrapes web data without an API.*
 _________________________________________________
 
-[app: (https://space-scraper.herokuapp.com)](https://space-scraper.herokuapp.com)
+[app: https://space-scraper.herokuapp.com](https://space-scraper.herokuapp.com)
 
 [source: https://github.com/LandrumTrev/spacescraper](https://github.com/LandrumTrev/spacescraper)
 
