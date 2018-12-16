@@ -21,74 +21,76 @@ module.exports = function(app) {
   // GET route to scrape news page from spacenews.com
   // https://spacenews.com/segment/news/
   app.get("/scrape", function(req, res) {
-
     // have axios scrape a page and return its data as (response)
-    axios.get("https://spacenews.com/segment/news/").then(function(response) {
-      // console.log(response);
-      // console.log(response.data);
+    axios
+      .get("https://spacenews.com/segment/news/")
+      .then(function(response) {
+        // console.log(response);
+        // console.log(response.data);
 
-      // cheerio acts like (and uses) jQuery to traverse axios-scraped data
-      let $ = cheerio.load(response.data);
-      // console.log($);
+        // cheerio acts like (and uses) jQuery to traverse axios-scraped data
+        let $ = cheerio.load(response.data);
+        // console.log($);
 
-      $(".launch-article").each(function(i, element) {
-        // console.log(element);
+        $(".launch-article").each(function(i, element) {
+          // console.log(element);
 
-        // object to hold all properties of a scraped article
-        const article = {};
+          // object to hold all properties of a scraped article
+          const article = {};
 
-        // tack scraped data onto the article object
-        article.link = $(element)
-          .find(".launch-title")
-          .find("a")
-          .attr("href");
-        // console.log(article.link + "\n");
+          // tack scraped data onto the article object
+          article.link = $(element)
+            .find(".launch-title")
+            .find("a")
+            .attr("href");
+          // console.log(article.link + "\n");
 
-        article.title = $(element)
-          .find(".launch-title")
-          .find("a")
-          .text();
-        // console.log(article.title + "\n");
+          article.title = $(element)
+            .find(".launch-title")
+            .find("a")
+            .text();
+          // console.log(article.title + "\n");
 
-        article.author = $(element)
-          .find(".author")
-          .text();
-        // console.log(article.author + "\n");
+          article.author = $(element)
+            .find(".author")
+            .text();
+          // console.log(article.author + "\n");
 
-        article.authorLink = $(element)
-          .find(".author")
-          .attr("href");
-        // console.log(article.authorLink + "\n");
+          article.authorLink = $(element)
+            .find(".author")
+            .attr("href");
+          // console.log(article.authorLink + "\n");
 
-        article.pubDate = $(element)
-          .find(".pubdate")
-          .attr("datetime");
-        // console.log(article.pubDate + "\n");
+          article.pubDate = $(element)
+            .find(".pubdate")
+            .attr("datetime");
+          // console.log(article.pubDate + "\n");
 
-        article.excerpt = $(element)
-          .find(".post-excerpt")
-          .text();
-        // console.log(article.excerpt + "\n");
+          article.excerpt = $(element)
+            .find(".post-excerpt")
+            .text();
+          // console.log(article.excerpt + "\n");
 
-        article.thumbnail = $(element)
-          .find(".wp-post-image")
-          .attr("src");
-        // console.log(article.thumbnail + "\n");
+          article.thumbnail = $(element)
+            .find(".wp-post-image")
+            .attr("src");
+          // console.log(article.thumbnail + "\n");
 
-        // console.log(article + "\n");
+          // console.log(article + "\n");
 
-        // ==============================
+          // ==============================
 
-        // then run a function that only inserts a scraped article
-        // if it does not already exist in the db
-        checkNewArticles(article);
-        // ==============================
+          // then run a function that only inserts a scraped article
+          // if it does not already exist in the db
+          checkNewArticles(article);
+          // ==============================
+        });
+      })
+      .then(function() {
+        // console.log(res);
+        // console.log("scrape finished");
+        res.json("scrape finished");
       });
-    }).then(function() {
-      // console.log(res);
-      // console.log("scrape finished");
-      res.json("scrape finished");
-    });
   });
 
   // checks if a new article being scraped already exists in "articles" collection
@@ -161,6 +163,39 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+
+  // ========================================================
+
+  // Delete an example by id
+  app.delete("/api/comments/:id", function(req, res) {
+    db.Comment.remove({ _id: req.params.id })
+    .then(function(dbComment) {
+      res.json(dbComment);
+    });
+  });
+
+  // DELETE a Comment to the db
+  // app.post("/api/comments/:articleid", function(req, res) {
+  //   // console.log(req.params.articleid);
+  //   // console.log(req.body);
+
+  //   var comment = req.body.data;
+  //   console.log(comment);
+
+  //   db.Comment.create(comment)
+  //     .then(function(dbComment) {
+  //       // console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
+  //       // console.log("NEW COMMENT ADDED TO DB: " + dbComment);
+
+  //       return db.Article.findOneAndUpdate({ _id: req.params.articleid }, { $push: { comments: dbComment._id } }, { new: true });
+  //     })
+  //     .then(function(dbArticle) {
+  //       console.log(dbArticle);
+  //     })
+  //     .catch(function(err) {
+  //       console.log(err);
+  //     });
+  // });
 
   // ========================================================
 }; // end module.exports

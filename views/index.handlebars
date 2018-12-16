@@ -33,6 +33,7 @@ DISPLAY ALL ARTICLES FROM spacescraper DB > articles COLLECTION
           <div class="article-comments" data-article="{{_id}}">
             {{#each comments}}
               <div>
+                <i class="delete-comment fas fa-times" data-comment="{{_id}}"></i>
                 <span class="commenting-user">{{ username }} said:</span>
                 <span class="users-comment">{{ commentText }}</span>
               </div>

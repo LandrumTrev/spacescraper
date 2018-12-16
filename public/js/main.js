@@ -12,6 +12,32 @@
 $(document).ready(function() {
   // ==========================================================
 
+  // signs a user into page with a username
+  $(".delete-comment").on("click", deleteComment);
+
+  // called by the .delete-resource buttons event handler
+  function deleteComment() {
+    // console.log("tee hee, clicking tickles!");
+
+    var confirmDelete = confirm("Are you sure you want to delete this comment?");
+
+    if (confirmDelete == true) {
+      
+      // get the comment's _id from the delete button's data-comment value
+      let thisCommentId = $(this).attr("data-comment");
+      console.log(thisCommentId);
+
+      // call the DELETE route in apiRoutes
+      $.ajax("/api/comments/" + thisCommentId, {
+        type: "DELETE"
+      }).then(function(result) {
+        location.reload(true);
+      });
+    }
+  }
+
+  // ==========================================================
+
   // get and set values of all comments username as local storage username value
   let loggedinName = JSON.parse(localStorage.getItem("username"));
   $(".username-input").val(loggedinName);
