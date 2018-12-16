@@ -16,9 +16,6 @@ public/styles.css
 
 body {
   font-family: "Barlow Condensed", sans-serif;
-}
-
-body {
   height: 110vh;
   background-color: rgb(24, 45, 80);
 }
