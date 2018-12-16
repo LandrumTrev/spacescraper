@@ -12,7 +12,31 @@
 $(document).ready(function() {
   // ==========================================================
 
-  // console.log("articles.js logging is go!");
+  // get and set values of all comments username as local storage username value
+  let loggedinName = JSON.parse(localStorage.getItem("username"));
+  $(".username-input").val(loggedinName);
+
+  // ==========================================================
+
+  // signs a user into page with a username
+  $("#signin").on("click", function() {
+    let enteredName = $("#signin-name")
+      .val()
+      .trim();
+    // console.log(enteredName);
+
+    // make sure entered username isn't blank
+    if (enteredName === "") {
+      alert("Please enter a username.");
+    } else {
+      // set the entered username in localStorage
+      localStorage.setItem("username", JSON.stringify(enteredName));
+
+      // this value needs to be set with Handlebars data
+      // otherwise hardcoded value replaces this value on page reload
+      // $("#users-name").text(loggedinName);
+    }
+  });
 
   // ==========================================================
 

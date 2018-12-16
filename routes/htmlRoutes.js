@@ -18,9 +18,12 @@ module.exports = function(app) {
   // =====================================================
 
   // htmlRoute for getting all Article collection docs from the db
-  app.get("/", function(req, res) {
+  // single page app, so ALL routes "*" will call the same function
+  app.get("*", function(req, res) {
     // async mongoose return all documents in "articles" collection
     db.Article.find({})
+      // limit the number of documents returned
+      .limit(10)
       // sort the display order by day in pubDate, then by datetime of articleCreated
       .sort({ pubDate: -1, articleCreated: -1 })
       // populate comments: of each Article with full data of associated comments
@@ -44,23 +47,6 @@ module.exports = function(app) {
         res.json(err);
       }); // end .catch()
   }); // end app.get()
-
-  // =====================================================
-
-  // Load page with user's projects
-  // app.get("/:user", function(req, res) {
-  //   db.Example.findAll({}).then(function(dbExamples) {
-  //     res.render("myprojects", {
-  //       msg: "Welcome!",
-  //       examples: dbExamples
-  //     });
-  //   });
-  // });
-
-  // Render 404 page for any unmatched routes
-  // app.get("*", function(req, res) {
-  //   res.render("404");
-  // });
 
   // ====================================================
 }; // end module.exports

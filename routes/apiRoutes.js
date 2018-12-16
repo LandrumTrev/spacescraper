@@ -82,9 +82,12 @@ module.exports = function(app) {
         // then run a function that only inserts a scraped article
         // if it does not already exist in the db
         checkNewArticles(article);
-
         // ==============================
       });
+    }).then(function() {
+      // console.log(res);
+      // console.log("scrape finished");
+      res.json("scrape finished");
     });
   });
 

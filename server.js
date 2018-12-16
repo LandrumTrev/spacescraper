@@ -9,10 +9,10 @@
 // ====================================================
 
 // DEPENDENCIES
-let express = require("express");
-var exphbs = require("express-handlebars");
-let logger = require("morgan");
-let mongoose = require("mongoose");
+const express = require("express");
+const exphbs = require("express-handlebars");
+const logger = require("morgan");
+const mongoose = require("mongoose");
 
 // require("dotenv").config();
 // intall dotenv to use .env for secure auth and API keys
