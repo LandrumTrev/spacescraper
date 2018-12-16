@@ -44,6 +44,17 @@ body {
   background-color: rgb(83, 128, 167);
 }
 
+.credits {
+  float: right;
+  color: rgb(189, 214, 235);
+  font-weight: 100;
+}
+
+.credits a {
+  color: rgb(222, 231, 238);
+  font-weight: 400;
+}
+
 .article-image {
   width: 100%;
 }
