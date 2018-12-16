@@ -8,7 +8,8 @@
 // models/User.js - mongoose Model for User username and password
 // ====================================================
 
-
+// this model not currently used
+// future use for more robust user accounts
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 

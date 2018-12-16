@@ -8,15 +8,10 @@
 // routes/apiRoutes.js
 // ====================================================
 
-// jQuery calls from script.js:
-
-// require all table data from db as ORM Sequelize models
 let db = require("../models");
-
 let axios = require("axios");
 let cheerio = require("cheerio");
 
-// export routes for import by server.js, used by Express
 module.exports = function(app) {
   // GET route to scrape news page from spacenews.com
   // https://spacenews.com/segment/news/
@@ -25,12 +20,10 @@ module.exports = function(app) {
     axios
       .get("https://spacenews.com/segment/news/")
       .then(function(response) {
-        // console.log(response);
         // console.log(response.data);
 
         // cheerio acts like (and uses) jQuery to traverse axios-scraped data
         let $ = cheerio.load(response.data);
-        // console.log($);
 
         $(".launch-article").each(function(i, element) {
           // console.log(element);
@@ -98,7 +91,7 @@ module.exports = function(app) {
     // console.log(checkArticle);
     // console.log("INCOMING: " + checkArticle.title);
 
-    // // empty array to fill with existing titles from "articles"
+    // empty array to fill with existing titles from "articles"
     let existingTitles = [];
 
     // get all docs from "articles" collection
@@ -120,7 +113,6 @@ module.exports = function(app) {
 
       // if ALL existingTitles DO NOT MATCH an incoming title
       if (existingTitles.every(checkMatch) === true) {
-        // console.log("It's true!");
 
         // then .create() a new Article document in "articles" collection
         db.Article.create(checkArticle)
@@ -146,8 +138,8 @@ module.exports = function(app) {
     // console.log(req.params.articleid);
     // console.log(req.body);
 
-    var comment = req.body.data;
-    console.log(comment);
+    let comment = req.body.data;
+    // console.log(comment);
 
     db.Comment.create(comment)
       .then(function(dbComment) {
@@ -166,36 +158,12 @@ module.exports = function(app) {
 
   // ========================================================
 
-  // Delete an example by id
+  // route from a DELETE COMMENT button
   app.delete("/api/comments/:id", function(req, res) {
-    db.Comment.remove({ _id: req.params.id })
-    .then(function(dbComment) {
+    db.Comment.remove({ _id: req.params.id }).then(function(dbComment) {
       res.json(dbComment);
     });
   });
-
-  // DELETE a Comment to the db
-  // app.post("/api/comments/:articleid", function(req, res) {
-  //   // console.log(req.params.articleid);
-  //   // console.log(req.body);
-
-  //   var comment = req.body.data;
-  //   console.log(comment);
-
-  //   db.Comment.create(comment)
-  //     .then(function(dbComment) {
-  //       // console.log("\n+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=\n");
-  //       // console.log("NEW COMMENT ADDED TO DB: " + dbComment);
-
-  //       return db.Article.findOneAndUpdate({ _id: req.params.articleid }, { $push: { comments: dbComment._id } }, { new: true });
-  //     })
-  //     .then(function(dbArticle) {
-  //       console.log(dbArticle);
-  //     })
-  //     .catch(function(err) {
-  //       console.log(err);
-  //     });
-  // });
 
   // ========================================================
 }; // end module.exports

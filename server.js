@@ -14,14 +14,7 @@ const exphbs = require("express-handlebars");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
-// require("dotenv").config();
-// intall dotenv to use .env for secure auth and API keys
-// Heroku also uses a .env for PORT selection
-// npm i dotenv
-// add .env file to root, add .env to .gitignore
-
 // Express CONFIG
-// let PORT = 3000;
 let PORT = process.env.PORT || 3000;
 let app = express();
 
@@ -59,6 +52,3 @@ app.listen(PORT, function() {
   console.log("Listening for space being scraped on PORT " + PORT + "!");
   console.log("\n");
 });
-
-// Does Express need to be exported from server.js?
-module.exports = app;

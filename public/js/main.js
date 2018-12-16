@@ -17,17 +17,14 @@ $(document).ready(function() {
 
   // called by the .delete-resource buttons event handler
   function deleteComment() {
-    // console.log("tee hee, clicking tickles!");
-
     var confirmDelete = confirm("Are you sure you want to delete this comment?");
 
-    if (confirmDelete == true) {
-      
+    if (confirmDelete === true) {
       // get the comment's _id from the delete button's data-comment value
       let thisCommentId = $(this).attr("data-comment");
-      console.log(thisCommentId);
+      // console.log(thisCommentId);
 
-      // call the DELETE route in apiRoutes
+      // call the DELETE COMMENT route in apiRoutes
       $.ajax("/api/comments/" + thisCommentId, {
         type: "DELETE"
       }).then(function(result) {
@@ -38,6 +35,7 @@ $(document).ready(function() {
 
   // ==========================================================
 
+  // primitive user login for comments attribution, no accounts or passwords
   // get and set values of all comments username as local storage username value
   let loggedinName = JSON.parse(localStorage.getItem("username"));
   $(".username-input").val(loggedinName);
@@ -57,10 +55,6 @@ $(document).ready(function() {
     } else {
       // set the entered username in localStorage
       localStorage.setItem("username", JSON.stringify(enteredName));
-
-      // this value needs to be set with Handlebars data
-      // otherwise hardcoded value replaces this value on page reload
-      // $("#users-name").text(loggedinName);
     }
   });
 
@@ -72,12 +66,16 @@ $(document).ready(function() {
       console.log(result);
     });
   }
+
+  // on page load, scrape new images
   scrapeNewNews();
 
   // ==========================================================
 
   // by default, hide all comment form areas on page load
   $(".comment-form").hide();
+
+  // ==========================================================
 
   // show/hide (toggle) the comment form areas when .toggle-comment clicked
   $(".toggle-comment").on("click", function(event) {
@@ -124,7 +122,7 @@ $(document).ready(function() {
       commentText: thisUserComment,
       articleId: thisArticleId
     };
-    console.log(userNameAndComment);
+    // console.log(userNameAndComment);
 
     // POST the new comment with username to apiRoutes
     $.post("/api/comments/" + thisArticleId, {

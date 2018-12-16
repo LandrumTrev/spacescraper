@@ -10,7 +10,7 @@
 
 // require Mongoose models/index.js to access data from db
 // to use for sending data to Handlebars page views
-var db = require("../models");
+let db = require("../models");
 
 // export routes for import by server.js, used by Express
 module.exports = function(app) {
@@ -26,18 +26,15 @@ module.exports = function(app) {
       .limit(10)
       // sort the display order by day in pubDate, then by datetime of articleCreated
       .sort({ pubDate: -1, articleCreated: -1 })
-      // populate comments: of each Article with full data of associated comments
+      // populate comments: of each Article with full data of associated Comments
       .populate("comments")
       // data returned placed into promise func's dbArticle param
       .then(function(dbArticle) {
         // check out the structure of the data returned in dbArticle
         // console.log(dbArticle[0]);
-        // result renders article.handlebars view
+        // result renders index.handlebars view
         res.render("index", {
-          // data passed into the Handlebars view render:
-          // hardcoded key:value data property
-          // msg: "Articles...from Space!",
-          // data returned from mongoose db query
+          // data passed into the Handlebars view render returned from mongoose db query
           articles: dbArticle
         }); // end handlbars render
       }) // end .then()

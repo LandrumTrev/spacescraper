@@ -11,7 +11,7 @@ DISPLAY ALL ARTICLES FROM spacescraper DB > articles COLLECTION
 
 <div class="container-fluid">
   <div class="card-columns">
-    {{!-- articles: is all docs from "articles" collection --}} {{#each articles}}
+    {{#each articles}}
       <div class="card mt-4">
         <img class="article-image" src="{{thumbnail}}" />
         <div id="{{_id}}" class="card-body">
